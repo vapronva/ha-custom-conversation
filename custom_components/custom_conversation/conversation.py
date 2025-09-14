@@ -102,10 +102,10 @@ def _parse_tool_args(arguments: dict[str, Any]) -> dict[str, Any]:
     """
     if not isinstance(arguments, dict):
         try:
-            arguments = arguments.replace("null", "None")
+            arguments = arguments.replace("null", "None").replace(":false", ":False").replace(":true", ":True")
             arguments = ast.literal_eval(arguments)
         except ValueError as err:
-            LOGGER.error("Failed to parse tool arguments: %s", arguments)
+            LOGGER.exception("Failed to parse tool arguments: %s", arguments)
             raise HomeAssistantError("Failed to parse tool arguments") from err
     return {k: _fix_invalid_arguments(v) for k, v in arguments.items() if v}
 
