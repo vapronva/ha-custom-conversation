@@ -102,7 +102,7 @@ def _parse_tool_args(arguments: dict[str, Any]) -> dict[str, Any]:
     """
     if not isinstance(arguments, dict):
         try:
-            arguments = arguments.replace("null", "None").replace(":false", ":False").replace(":true", ":True")
+            arguments = arguments.replace("null", "None").replace(":false", ":False").replace(":true", ":True").replace(": false", ": False").replace(": true", ": True")
             arguments = ast.literal_eval(arguments)
         except ValueError as err:
             LOGGER.exception("Failed to parse tool arguments: %s", arguments)
